@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hampton NH Garden Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f5f0e8;
+    font-family: 'Lato', sans-serif;
+    color: #2d2d2d;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #2d5a3d;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #7a8c7e;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .section-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #2d5a3d;
+    margin: 32px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #2d5a3d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .plant-card {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .card-header {
+    padding: 14px 18px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #f0ebe0;
+  }
+
+  .plant-emoji { font-size: 1.6rem; }
+
+  .plant-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #2d5a3d;
+    font-weight: 700;
+  }
+
+  .plant-timing {
+    font-size: 0.75rem;
+    color: #888;
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .badge {
+    margin-left: auto;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-hard { background: #ffe0e0; color: #c0392b; }
+  .badge-gentle { background: #e0f0e8; color: #27ae60; }
+  .badge-deadhead { background: #e8e8ff; color: #5b5bd6; }
+  .badge-pull { background: #fff3cd; color: #856404; }
+  .badge-warning { background: #ffe0e0; color: #c0392b; }
+  .badge-info { background: #e0f0e8; color: #27ae60; }
+
+  .diagram-area {
+    padding: 16px 18px;
+    background: #fafaf7;
+    display: flex;
+    justify-content: center;
+  }
+
+  svg text { font-family: 'Lato', sans-serif; }
+
+  .instructions {
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #444;
+    border-top: 1px solid #f0ebe0;
+  }
+
+  .instructions strong { color: #2d5a3d; }
+
+  .tip {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #f0f7f3;
+    border-left: 3px solid #2d5a3d;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.8rem;
+    color: #555;
+    font-style: italic;
+  }
+
+  .warning {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #fff5f5;
+    border-left: 3px solid #e74c3c;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .info-box {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+
+  .info-box-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    margin-bottom: 6px;
+  }
+
+  .info-box-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d5a3d;
+  }
+
+  .info-box-sub {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 8px 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe0;
+    font-size: 0.82rem;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-month {
+    font-weight: 700;
+    color: #2d5a3d;
+    min-width: 45px;
+    font-size: 0.8rem;
+  }
+
+  .quick-ref {
+    background: #2d5a3d;
+    color: white;
+    border-radius: 16px;
+    padding: 18px;
+    margin-top: 4px;
+  }
+
+  .quick-ref-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .quick-ref-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.82rem;
+    gap: 8px;
+  }
+
+  .quick-ref-row:last-child { border-bottom: none; }
+  .quick-ref-row span:last-child { opacity: 0.8; text-align: right; }
+
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f0ebe0;
+    align-items: flex-start;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .steps li::before {
+    content: counter(step);
+    background: #2d5a3d;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🌿 Hampton, NH Garden Guide</h1>
+<p class="subtitle">Complete care reference — flowers, tomato, oregano</p>
+
+<!-- ===================== SECTION 1: FLOWER TRIMMING ===================== -->
+<div class="section-header">✂️ Flower Trimming Guide</div>
+
+<!-- COLUMBINE -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🌸</span>
+    <div>
+      <div class="plant-name">Wild Columbine</div>
+      <div class="plant-timing">Trim: Late June – Early July, after blooms die</div>
+    </div>
+    <span class="badge badge-gentle">Cut stems</span>
+  </div>
+  <div class="diagram-area">
+    <svg width="300" height="160" viewBox="0 0 300 160">
+      <rect x="20" y="130" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <rect x="170" y="130" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <text x="80" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">BEFORE</text>
+      <ellipse cx="80" cy="122" rx="35" ry="12" fill="#5a8f5a" opacity="0.7"/>
+      <line x1="65" y1="118" x2="55" y2="55" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="80" y1="115" x2="80" y2="40" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="95" y1="118" x2="105" y2="60" stroke="#5a8f5a" stroke-width="2"/>
+      <circle cx="55" cy="50" r="8" fill="#c9a0a0" opacity="0.8"/>
+      <text x="55" y="53" text-anchor="middle" font-size="9" fill="#8b5a5a">✕</text>
+      <circle cx="80" cy="35" r="8" fill="#c9a0a0" opacity="0.8"/>
+      <text x="80" y="38" text-anchor="middle" font-size="9" fill="#8b5a5a">✕</text>
+      <circle cx="105" cy="55" r="8" fill="#c9a0a0" opacity="0.8"/>
+      <text x="105" y="58" text-anchor="middle" font-size="9" fill="#8b5a5a">✕</text>
+      <text x="148" y="80" text-anchor="middle" font-size="20" fill="#2d5a3d">→</text>
+      <text x="230" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">AFTER</text>
+      <ellipse cx="230" cy="118" rx="40" ry="18" fill="#5a8f5a" opacity="0.85"/>
+      <ellipse cx="215" cy="110" rx="22" ry="14" fill="#6aab6a" opacity="0.7"/>
+      <ellipse cx="245" cy="108" rx="20" ry="13" fill="#6aab6a" opacity="0.7"/>
+      <line x1="210" y1="108" x2="200" y2="95" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="195" y="92" font-size="9" fill="#e74c3c" text-anchor="middle">cut here</text>
+      <line x1="218" y1="105" x2="214" y2="95" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="235" y1="100" x2="235" y2="90" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="248" y1="103" x2="252" y2="93" stroke="#5a8f5a" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="instructions">
+    Cut each <strong>flower stem down to the base</strong> where it meets the leafy mound. <strong>Leave all the leaves alone</strong> — they feed the plant roots for next year.
+    <div class="tip">💡 Rozanne Cranesbill in the same pot will spread and hide the columbine's bare stems naturally.</div>
+  </div>
+</div>
+
+<!-- ROZANNE -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">💜</span>
+    <div>
+      <div class="plant-name">Rozanne Cranesbill Geranium</div>
+      <div class="plant-timing">Trim: Midsummer (July) when leggy or tired looking</div>
+    </div>
+    <span class="badge badge-hard">Cut by half</span>
+  </div>
+  <div class="diagram-area">
+    <svg width="300" height="160" viewBox="0 0 300 160">
+      <rect x="20" y="132" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <rect x="170" y="132" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <text x="80" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">BEFORE</text>
+      <path d="M80,128 Q40,100 25,70 Q20,55 30,50" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M80,128 Q60,95 55,75 Q52,60 60,52" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M80,128 Q85,90 90,68 Q92,55 85,48" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M80,128 Q105,100 118,75 Q125,58 118,50" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <circle cx="30" cy="48" r="5" fill="#7b68ee" opacity="0.7"/>
+      <circle cx="60" cy="50" r="5" fill="#7b68ee" opacity="0.7"/>
+      <circle cx="85" cy="46" r="5" fill="#7b68ee" opacity="0.5"/>
+      <circle cx="118" cy="48" r="5" fill="#7b68ee" opacity="0.5"/>
+      <line x1="20" y1="88" x2="140" y2="88" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="78" y="85" text-anchor="middle" font-size="9" fill="#e74c3c" font-weight="700">✂ cut here (halfway)</text>
+      <text x="148" y="80" text-anchor="middle" font-size="20" fill="#2d5a3d">→</text>
+      <text x="230" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">AFTER</text>
+      <path d="M230,128 Q205,118 195,105 Q188,95 192,88" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M230,128 Q215,112 210,100 Q207,90 212,85" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M230,128 Q232,108 235,96 Q237,87 233,83" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <path d="M230,128 Q248,112 255,100 Q260,90 256,85" stroke="#5a7a5a" stroke-width="2" fill="none"/>
+      <ellipse cx="230" cy="120" rx="38" ry="12" fill="#6aab6a" opacity="0.4"/>
+      <circle cx="192" cy="86" r="4" fill="#9b8bee" opacity="0.9"/>
+      <circle cx="212" cy="83" r="4" fill="#9b8bee" opacity="0.9"/>
+      <circle cx="233" cy="81" r="4" fill="#9b8bee" opacity="0.9"/>
+      <circle cx="256" cy="83" r="4" fill="#9b8bee" opacity="0.9"/>
+      <text x="230" y="148" text-anchor="middle" font-size="9" fill="#27ae60">regrows in ~2 weeks!</text>
+    </svg>
+  </div>
+  <div class="instructions">
+    Cut the <strong>entire plant back by half</strong> — every stem. This is called the "Chelsea chop." It feels drastic but this plant loves it.
+    <div class="tip">💡 Bounces back fuller within 2 weeks and blooms again through frost.</div>
+  </div>
+</div>
+
+<!-- WHITE PHLOX -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🤍</span>
+    <div>
+      <div class="plant-name">White Phlox</div>
+      <div class="plant-timing">Trim: As individual flower clusters fade</div>
+    </div>
+    <span class="badge badge-deadhead">Deadhead only</span>
+  </div>
+  <div class="diagram-area">
+    <svg width="300" height="160" viewBox="0 0 300 160">
+      <text x="80" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">SPENT CLUSTER</text>
+      <text x="230" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">FRESH CLUSTER</text>
+      <line x1="80" y1="140" x2="80" y2="75" stroke="#5a8f5a" stroke-width="3"/>
+      <line x1="80" y1="95" x2="55" y2="75" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="80" y1="95" x2="105" y2="75" stroke="#5a8f5a" stroke-width="2"/>
+      <circle cx="80" cy="62" r="14" fill="#d0c5b5" opacity="0.8"/>
+      <circle cx="55" cy="65" r="10" fill="#d0c5b5" opacity="0.7"/>
+      <circle cx="105" cy="65" r="10" fill="#d0c5b5" opacity="0.7"/>
+      <text x="80" y="66" text-anchor="middle" font-size="10" fill="#8b7b6b">brown</text>
+      <line x1="50" y1="80" x2="115" y2="80" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="80" y="78" text-anchor="middle" font-size="8" fill="#e74c3c">✂ snip below dead head</text>
+      <text x="148" y="85" text-anchor="middle" font-size="20" fill="#2d5a3d">→</text>
+      <line x1="230" y1="140" x2="230" y2="75" stroke="#5a8f5a" stroke-width="3"/>
+      <line x1="230" y1="95" x2="205" y2="75" stroke="#5a8f5a" stroke-width="2"/>
+      <line x1="230" y1="95" x2="255" y2="75" stroke="#5a8f5a" stroke-width="2"/>
+      <circle cx="230" cy="60" r="14" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+      <circle cx="205" cy="63" r="10" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+      <circle cx="255" cy="63" r="10" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+      <circle cx="230" cy="60" r="4" fill="#fff9c4"/>
+      <circle cx="205" cy="63" r="3" fill="#fff9c4"/>
+      <circle cx="255" cy="63" r="3" fill="#fff9c4"/>
+      <text x="230" y="148" text-anchor="middle" font-size="9" fill="#27ae60">new bloom triggered!</text>
+    </svg>
+  </div>
+  <div class="instructions">
+    Only remove <strong>individual dead flower clusters</strong> — snip just below the brown spent head. Do <strong>not</strong> cut the whole plant down.
+    <div class="tip">💡 Check every few days. Violas in the same pot will fade in July heat — just pull them out and leave phlox solo.</div>
+  </div>
+</div>
+
+<!-- CATNIP -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🐱</span>
+    <div>
+      <div class="plant-name">Catnip</div>
+      <div class="plant-timing">Trim: After each bloom flush — 2-3x per season</div>
+    </div>
+    <span class="badge badge-hard">Cut by half</span>
+  </div>
+  <div class="diagram-area">
+    <svg width="300" height="160" viewBox="0 0 300 160">
+      <rect x="20" y="132" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <rect x="170" y="132" width="120" height="8" rx="4" fill="#c8a97e" opacity="0.5"/>
+      <text x="80" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">AFTER FIRST BLOOM</text>
+      <line x1="65" y1="130" x2="60" y2="45" stroke="#7a9a7a" stroke-width="2.5"/>
+      <line x1="80" y1="130" x2="80" y2="38" stroke="#7a9a7a" stroke-width="2.5"/>
+      <line x1="95" y1="130" x2="100" y2="48" stroke="#7a9a7a" stroke-width="2.5"/>
+      <rect x="55" y="30" width="8" height="18" rx="3" fill="#a89ab0" opacity="0.7"/>
+      <rect x="76" y="22" width="8" height="18" rx="3" fill="#a89ab0" opacity="0.7"/>
+      <rect x="96" y="32" width="8" height="18" rx="3" fill="#a89ab0" opacity="0.7"/>
+      <ellipse cx="55" cy="85" rx="10" ry="5" fill="#7aab7a" opacity="0.6" transform="rotate(-20,55,85)"/>
+      <ellipse cx="85" cy="80" rx="10" ry="5" fill="#7aab7a" opacity="0.6" transform="rotate(10,85,80)"/>
+      <line x1="25" y1="82" x2="135" y2="82" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="80" y="79" text-anchor="middle" font-size="8" fill="#e74c3c" font-weight="700">✂ cut everything to here</text>
+      <text x="148" y="80" text-anchor="middle" font-size="20" fill="#2d5a3d">→</text>
+      <text x="230" y="18" text-anchor="middle" font-size="11" fill="#888" font-weight="700">AFTER CUTTING</text>
+      <line x1="218" y1="130" x2="215" y2="98" stroke="#7a9a7a" stroke-width="2.5"/>
+      <line x1="230" y1="130" x2="230" y2="93" stroke="#7a9a7a" stroke-width="2.5"/>
+      <line x1="242" y1="130" x2="245" y2="100" stroke="#7a9a7a" stroke-width="2.5"/>
+      <rect x="211" y="84" width="7" height="15" rx="3" fill="#9b7bb0" opacity="0.9"/>
+      <rect x="226" y="78" width="7" height="16" rx="3" fill="#9b7bb0" opacity="0.9"/>
+      <rect x="241" y="86" width="7" height="15" rx="3" fill="#9b7bb0" opacity="0.9"/>
+      <ellipse cx="212" cy="112" rx="9" ry="5" fill="#8abb8a" opacity="0.8" transform="rotate(-15,212,112)"/>
+      <ellipse cx="235" cy="108" rx="9" ry="5" fill="#8abb8a" opacity="0.8" transform="rotate(10,235,108)"/>
+      <text x="230" y="148" text-anchor="middle" font-size="9" fill="#27ae60">blooms again 2–3 more times!</text>
+    </svg>
+  </div>
+  <div class="instructions">
+    Cut the <strong>entire plant down by half</strong> after the first bloom spike turns brown. Every stem. Forces fresh growth and repeat blooming.
+    <div class="tip">💡 You can get 2–3 bloom cycles per season from catnip just by cutting it back each time.</div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 2: TOMATO ===================== -->
+<div class="section-header">🍅 Beefsteak Tomato Care</div>
+
+<!-- Storm Recovery -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">⛈️</span>
+    <div>
+      <div class="plant-name">Storm Damage Recovery</div>
+      <div class="plant-timing">Do this now — within the first week after storm</div>
+    </div>
+    <span class="badge badge-warning">Act now</span>
+  </div>
+  <div class="instructions">
+    <strong>Step 1 — Remove hanging branches:</strong> Any branch hanging by a thread cannot transport water. Cut cleanly at the base where it meets the main stem. Don't leave stubs.
+    <br><br>
+    <strong>Step 2 — Remove painters tape:</strong> Once damaged branches are cut, remove the splints. They're no longer needed.
+    <br><br>
+    <strong>Step 3 — Do NOT fertilize yet:</strong> Wait 5–7 days after the storm. Fertilizing a stressed plant makes it worse.
+    <br><br>
+    <strong>Step 4 — Check for suckers:</strong> Stressed plants push extra suckers as a survival response. Pinch any small ones in the V crotches now.
+    <div class="warning">⚠️ The yellowing leaves you see are normal post-storm stress. They should green up within 1–2 weeks once you fertilize and the plant stabilizes.</div>
+    <div class="tip">💡 Good sign: if you see small new growth points near the center, the plant is actively recovering. Keep it in full sun.</div>
+  </div>
+</div>
+
+<!-- Sucker Removal -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🌱</span>
+    <div>
+      <div class="plant-name">Sucker Removal</div>
+      <div class="plant-timing">Check every 4–5 days all season</div>
+    </div>
+    <span class="badge badge-gentle">Pinch or snip</span>
+  </div>
+  <div class="diagram-area">
+    <svg width="300" height="170" viewBox="0 0 300 170">
+      <!-- Main stem -->
+      <line x1="150" y1="160" x2="150" y2="20" stroke="#5a8f5a" stroke-width="4"/>
+      <!-- Branch left -->
+      <line x1="150" y1="80" x2="80" y2="40" stroke="#5a8f5a" stroke-width="3"/>
+      <!-- Branch right -->
+      <line x1="150" y1="110" x2="220" y2="70" stroke="#5a8f5a" stroke-width="3"/>
+      <!-- Sucker in V crotch left -->
+      <line x1="150" y1="80" x2="110" y2="65" stroke="#e74c3c" stroke-width="2.5"/>
+      <ellipse cx="103" cy="61" rx="12" ry="7" fill="#ffcccc" stroke="#e74c3c" stroke-width="1.5"/>
+      <text x="103" y="64" text-anchor="middle" font-size="8" fill="#c0392b" font-weight="700">SUCKER</text>
+      <!-- Sucker in V crotch right -->
+      <line x1="150" y1="110" x2="175" y2="95" stroke="#e74c3c" stroke-width="2.5"/>
+      <ellipse cx="183" cy="90" rx="12" ry="7" fill="#ffcccc" stroke="#e74c3c" stroke-width="1.5"/>
+      <text x="183" y="93" text-anchor="middle" font-size="8" fill="#c0392b" font-weight="700">SUCKER</text>
+      <!-- Labels -->
+      <text x="150" y="15" text-anchor="middle" font-size="10" fill="#5a8f5a" font-weight="700">main stem</text>
+      <text x="65" y="38" text-anchor="middle" font-size="10" fill="#5a8f5a">branch</text>
+      <text x="235" y="68" text-anchor="middle" font-size="10" fill="#5a8f5a">branch</text>
+      <!-- V crotch labels -->
+      <text x="148" y="76" text-anchor="middle" font-size="8" fill="#888">V crotch</text>
+      <text x="148" y="106" text-anchor="middle" font-size="8" fill="#888">V crotch</text>
+      <!-- Arrow pointing to sucker -->
+      <text x="50" y="75" font-size="9" fill="#e74c3c">← pinch here</text>
+      <text x="195" y="115" font-size="9" fill="#e74c3c">← pinch here</text>
+    </svg>
+  </div>
+  <div class="instructions">
+    Suckers grow in the <strong>V-shaped crotch</strong> between the main stem and a branch. They steal energy from fruit production.
+    <br><br>
+    <strong>Under 2 inches:</strong> pinch off with your fingers<br>
+    <strong>Over 2 inches:</strong> use clean scissors<br>
+    <strong>Never remove more than ⅓ of the plant at once</strong>
+    <div class="tip">💡 Check every 4–5 days in warm weather — they grow fast. Beefsteaks especially need regular suckering to produce big heavy fruit.</div>
+  </div>
+</div>
+
+<!-- Watering -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">💧</span>
+    <div>
+      <div class="plant-name">Tomato Watering</div>
+      <div class="plant-timing">Daily check in summer heat</div>
+    </div>
+    <span class="badge badge-info">Consistent = key</span>
+  </div>
+  <div class="instructions">
+    <strong>How to check:</strong> Stick your finger 2 inches into the soil. Dry at that depth = water now. Still damp = wait.
+    <br><br>
+    <strong>How to water:</strong> Pour slowly at the base of the plant until water comes out the drainage holes. Don't rush it.
+    <br><br>
+    <strong>Frequency guide:</strong><br>
+    — Cool/cloudy days: every 2–3 days<br>
+    — Hot sunny NH summer days: possibly daily<br>
+    — After heavy rain: skip — check soil first
+    <div class="warning">⚠️ Inconsistent watering (dry then soaked then dry) causes <strong>blossom end rot</strong> — black bottoms on tomatoes. Keep it steady.</div>
+    <div class="tip">💡 Water in the morning if possible. Wet leaves overnight invites fungal issues.</div>
+  </div>
+</div>
+
+<!-- Fertilizing -->
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🌾</span>
+    <div>
+      <div class="plant-name">Tomato Fertilizing Schedule</div>
+      <div class="plant-timing">Pennington Rejuvenate — all season plan</div>
+    </div>
+    <span class="badge badge-info">Every 4–6 weeks</span>
+  </div>
+  <div class="instructions">
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-month">May</span>
+        <span>Mix 1–2 tbsp Rejuvenate into soil at planting. Water in well. <strong>Skip if plant is storm-stressed — wait 5–7 days first.</strong></span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">June</span>
+        <span>Sprinkle Rejuvenate on top of soil, water in. This is when the plant starts really growing — nitrogen helps green up leaves.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">July</span>
+        <span>When you see <strong>first flowers forming</strong>, switch focus to phosphorus. Add a handful of bone meal mixed into the top soil once. Continue Rejuvenate every 4–6 weeks.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">Aug</span>
+        <span>Keep fertilizing lightly. Fruit is sizing up now. Don't over-fertilize or you get big leaves, small tomatoes.</span>
+      </div>
+    </div>
+    <div class="tip">💡 You're in NH — your season ends around late September/first frost. Push for fruit by early August for best results.</div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 3: OREGANO ===================== -->
+<div class="section-header">🌿 Italian Oregano Care</div>
+
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">🍃</span>
+    <div>
+      <div class="plant-name">Harvesting Oregano</div>
+      <div class="plant-timing">Start now — harvest regularly all season</div>
+    </div>
+    <span class="badge badge-gentle">Snip outer stems</span>
+  </div>
+  <div class="instructions">
+    <strong>How to harvest:</strong> Snip stems from the outer edges of the plant, cutting just above a leaf node (where two leaves branch off the stem). Use scissors not pulling.
+    <br><br>
+    <strong>How much to take:</strong> Never more than ⅓ of the plant at once. The more you harvest, the bushier it grows.
+    <br><br>
+    <strong>Using fresh vs dried:</strong> Fresh Italian oregano is about <strong>twice as strong</strong> as dried. If a recipe calls for 1 tsp dried, use ½ tsp fresh.
+    <div class="tip">💡 Regular harvesting is actually better for the plant than leaving it alone — it prevents it from going to flower (bolting) which makes the leaves bitter.</div>
+  </div>
+</div>
+
+<div class="plant-card">
+  <div class="card-header">
+    <span class="plant-emoji">✂️</span>
+    <div>
+      <div class="plant-name">Oregano Trimming & Bolting</div>
+      <div class="plant-timing">Watch for flower buds — trim before they open</div>
+    </div>
+    <span class="badge badge-warning">Prevent bolting</span>
+  </div>
+  <div class="instructions">
+    <strong>What is bolting?</strong> When oregano gets hot and decides to flower, the leaves turn bitter and the plant stops being useful for cooking.
+    <br><br>
+    <strong>How to prevent it:</strong> When you see small flower buds forming at the tips of stems, pinch them off immediately before they open.
+    <br><br>
+    <strong>If it starts spreading too wide:</strong> Trim the edges back hard — right down to a few inches from the edge of the pot. Oregano in a shared container with tomato needs to stay in its lane.
+    <div class="warning">⚠️ If oregano gets very large it will compete with your tomato for root space. Keep it trimmed to the front half of the box.</div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 4: SEASONAL TIMELINE ===================== -->
+<div class="section-header">📅 Full Season Timeline</div>
+
+<div class="plant-card">
+  <div class="instructions" style="border-top: none;">
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-month">May</span>
+        <span>Plant everything. Water in well. Remove storm-damaged tomato branches. Start pinching oregano regularly. Columbine and phlox blooming.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">June</span>
+        <span>Fertilize tomato. Deadhead phlox regularly. Pinch tomato suckers every 4–5 days. Catnip first bloom — cut back by half when done. Violas fading in heat — pull when done.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">July</span>
+        <span>Tomato flowers forming — add bone meal once. Cut Rozanne back by half (Chelsea chop). Cut columbine stems to base. Catnip second bloom. Oregano watch for bolting.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">Aug</span>
+        <span>Tomatoes sizing up — keep watering consistently. Catnip possible third bloom. Rozanne reblooming after chop. Light fertilizing only.</span>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-month">Sept</span>
+        <span>Harvest tomatoes before first frost (late Sept in Hampton). Rozanne and catnip still going. Enjoy the garden before you head back to school!</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Reference -->
+<div class="quick-ref">
+  <div class="quick-ref-title">⚡ Quick Reference</div>
+  <div class="quick-ref-row"><span>🌸 Columbine</span><span>Cut flower stems to base · Leave leaves · Late June</span></div>
+  <div class="quick-ref-row"><span>💜 Rozanne</span><span>Cut by half · July · Regrows in 2 weeks</span></div>
+  <div class="quick-ref-row"><span>🤍 Phlox</span><span>Deadhead clusters only · Ongoing all season</span></div>
+  <div class="quick-ref-row"><span>🟣 Viola</span><span>Pinch dead flowers · Pull out in July heat</span></div>
+  <div class="quick-ref-row"><span>🐱 Catnip</span><span>Cut by half after each bloom · 2–3x per season</span></div>
+  <div class="quick-ref-row"><span>🍅 Tomato suckers</span><span>Pinch every 4–5 days · V crotch between stem/branch</span></div>
+  <div class="quick-ref-row"><span>💧 Tomato water</span><span>Finger 2" in soil · Dry = water · Consistent = no rot</span></div>
+  <div class="quick-ref-row"><span>🌾 Rejuvenate</span><span>Every 4–6 weeks · Add bone meal when flowers form</span></div>
+  <div class="quick-ref-row"><span>🍃 Oregano harvest</span><span>Outer stems · Max ⅓ at once · Pinch flower buds</span></div>
+</div>
+
+</body>
+</html>
