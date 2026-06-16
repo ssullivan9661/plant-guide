@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Log — Hampton NH Garden Guide</title>
+<style>
+  :root {
+    --green: #4a7c59;
+    --green-dark: #335c40;
+    --cream: #faf7f0;
+    --card: #ffffff;
+    --border: #e0dcd2;
+    --text: #2d2d2d;
+    --muted: #7a756b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    padding-bottom: 60px;
+  }
+  header {
+    background: var(--green);
+    color: white;
+    padding: 20px 16px 16px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  header p {
+    margin: 6px 0 0;
+    opacity: 0.9;
+    font-size: 0.9em;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    background: var(--green-dark);
+    padding: 10px;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+  }
+  nav a.active {
+    background: white;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    margin-top: 0;
+    font-size: 1.1em;
+  }
+  label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 4px;
+    font-size: 0.9em;
+  }
+  input[type="text"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    background: #fff;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  .cat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .cat-chip {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.85em;
+    cursor: pointer;
+    user-select: none;
+  }
+  .cat-chip.selected {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+  }
+  button.submit {
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button.submit:disabled {
+    background: #b9c7be;
+  }
+  .status {
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: center;
+    min-height: 1.2em;
+  }
+  .status.ok { color: var(--green-dark); }
+  .status.err { color: #b3261e; }
+
+  /* Settings */
+  details.settings summary {
+    cursor: pointer;
+    font-size: 0.85em;
+    color: var(--muted);
+    text-align: right;
+  }
+  details.settings .card { margin-top: 10px; }
+
+  /* Filters */
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .filter-chip {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+  .filter-chip.selected {
+    background: var(--green-dark);
+    color: white;
+    border-color: var(--green-dark);
+  }
+
+  /* Entries */
+  .entry {
+    border-left: 4px solid var(--green);
+    padding-left: 12px;
+    margin-bottom: 18px;
+  }
+  .entry .meta {
+    font-size: 0.8em;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .entry .tag {
+    background: var(--green);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75em;
+  }
+  .entry .body {
+    font-size: 0.95em;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  .entry .loc {
+    font-size: 0.8em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px 0;
+    font-size: 0.95em;
+  }
+  .loading {
+    text-align: center;
+    color: var(--muted);
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Field Log</h1>
+  <p>Hampton, NH — garden &amp; outdoor notes</p>
+</header>
+
+<nav>
+  <a href="index.html">🌿 Garden Guide</a>
+  <a href="field-log.html" class="active">📋 Field Log</a>
+</nav>
+
+<div class="container">
+
+  <!-- New Entry Form -->
+  <div class="card">
+    <h2>✏️ New Entry</h2>
+
+    <label for="entryDate">Date</label>
+    <input type="date" id="entryDate">
+
+    <label>Category</label>
+    <div class="cat-row" id="catRow">
+      <div class="cat-chip" data-cat="Storm Damage">⛈️ Storm Damage</div>
+      <div class="cat-chip" data-cat="Pests/Treatment">🐛 Pests/Treatment</div>
+      <div class="cat-chip" data-cat="Plant ID">🌱 Plant ID</div>
+      <div class="cat-chip" data-cat="Wildlife Sighting">🦋 Wildlife</div>
+      <div class="cat-chip" data-cat="Harvest">🍅 Harvest</div>
+      <div class="cat-chip" data-cat="General Note">📝 General</div>
+    </div>
+
+    <label for="entryLocation">Location (optional)</label>
+    <input type="text" id="entryLocation" placeholder="e.g. Raised bed, or trail name">
+
+    <label for="entryText">Notes</label>
+    <textarea id="entryText" placeholder="What did you notice? What did you do?"></textarea>
+
+    <button class="submit" id="submitBtn">Save Entry</button>
+    <div class="status" id="statusMsg"></div>
+  </div>
+
+  <!-- Settings (token) -->
+  <details class="settings" id="settingsDetails">
+    <summary>⚙️ Settings (GitHub connection)</summary>
+    <div class="card">
+      <p style="font-size:0.85em; color:var(--muted); margin-top:0;">
+        Paste a GitHub personal access token (fine-grained, scoped to the
+        <strong>plant-guide</strong> repo, with read/write access to
+        "Contents") so entries can save directly. This is stored only in
+        this browser.
+      </p>
+      <label for="tokenInput">Token</label>
+      <input type="text" id="tokenInput" placeholder="github_pat_...">
+      <button class="submit" id="saveTokenBtn" style="margin-top:10px;">Save Token</button>
+      <div class="status" id="tokenStatus"></div>
+    </div>
+  </details>
+
+  <!-- Filters -->
+  <div class="filter-row" id="filterRow">
+    <div class="filter-chip selected" data-filter="All">All</div>
+    <div class="filter-chip" data-filter="Storm Damage">⛈️ Storm</div>
+    <div class="filter-chip" data-filter="Pests/Treatment">🐛 Pests</div>
+    <div class="filter-chip" data-filter="Plant ID">🌱 Plant ID</div>
+    <div class="filter-chip" data-filter="Wildlife Sighting">🦋 Wildlife</div>
+    <div class="filter-chip" data-filter="Harvest">🍅 Harvest</div>
+    <div class="filter-chip" data-filter="General Note">📝 General</div>
+  </div>
+
+  <!-- Entries feed -->
+  <div id="entriesFeed">
+    <div class="loading">Loading entries…</div>
+  </div>
+
+</div>
+
+<script>
+const REPO_OWNER = "ssullivan9661";
+const REPO_NAME = "plant-guide";
+const FILE_PATH = "log-entries.json";
+const BRANCH = "main";
+
+const catRow = document.getElementById('catRow');
+const filterRow = document.getElementById('filterRow');
+const entriesFeed = document.getElementById('entriesFeed');
+const statusMsg = document.getElementById('statusMsg');
+const tokenStatus = document.getElementById('tokenStatus');
+const settingsDetails = document.getElementById('settingsDetails');
+
+let selectedCat = null;
+let selectedFilter = 'All';
+let allEntries = [];
+
+// Default date to today
+document.getElementById('entryDate').value = new Date().toISOString().split('T')[0];
+
+// Category chip selection
+catRow.addEventListener('click', (e) => {
+  const chip = e.target.closest('.cat-chip');
+  if (!chip) return;
+  document.querySelectorAll('#catRow .cat-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  selectedCat = chip.dataset.cat;
+});
+
+// Filter chip selection
+filterRow.addEventListener('click', (e) => {
+  const chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  document.querySelectorAll('#filterRow .filter-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  selectedFilter = chip.dataset.filter;
+  renderEntries();
+});
+
+// Token handling
+const TOKEN_KEY = 'fieldlog_gh_token';
+function getToken() {
+  return localStorage.getItem(TOKEN_KEY) || '';
+}
+document.getElementById('tokenInput').value = getToken();
+if (!getToken()) {
+  settingsDetails.open = true;
+}
+document.getElementById('saveTokenBtn').addEventListener('click', () => {
+  const val = document.getElementById('tokenInput').value.trim();
+  if (!val) {
+    tokenStatus.textContent = 'Please paste a token.';
+    tokenStatus.className = 'status err';
+    return;
+  }
+  localStorage.setItem(TOKEN_KEY, val);
+  tokenStatus.textContent = 'Token saved on this device.';
+  tokenStatus.className = 'status ok';
+  setTimeout(() => { settingsDetails.open = false; }, 800);
+});
+
+// GitHub API helpers
+async function ghGetFile() {
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`;
+  const res = await fetch(url, {
+    headers: { 'Accept': 'application/vnd.github+json' }
+  });
+  if (res.status === 404) {
+    return { entries: [], sha: null };
+  }
+  if (!res.ok) throw new Error('Failed to load log file (' + res.status + ')');
+  const data = await res.json();
+  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+  let entries = [];
+  try { entries = JSON.parse(content); } catch (e) { entries = []; }
+  return { entries, sha: data.sha };
+}
+
+async function ghSaveFile(entries, sha) {
+  const token = getToken();
+  if (!token) throw new Error('No GitHub token saved. Open Settings below.');
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+  const body = {
+    message: 'Add field log entry',
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(entries, null, 2)))),
+    branch: BRANCH
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || ('Save failed (' + res.status + ')'));
+  }
+  return res.json();
+}
+
+// Load entries on page load
+async function loadEntries() {
+  try {
+    const { entries } = await ghGetFile();
+    allEntries = entries;
+    renderEntries();
+  } catch (e) {
+    entriesFeed.innerHTML = '<div class="empty-msg">Could not load entries: ' + e.message + '</div>';
+  }
+}
+
+const catEmoji = {
+  'Storm Damage': '⛈️',
+  'Pests/Treatment': '🐛',
+  'Plant ID': '🌱',
+  'Wildlife Sighting': '🦋',
+  'Harvest': '🍅',
+  'General Note': '📝'
+};
+
+function renderEntries() {
+  const filtered = selectedFilter === 'All'
+    ? allEntries
+    : allEntries.filter(e => e.category === selectedFilter);
+
+  const sorted = [...filtered].sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt||'').localeCompare(a.createdAt||''));
+
+  if (sorted.length === 0) {
+    entriesFeed.innerHTML = '<div class="empty-msg">No entries yet' + (selectedFilter !== 'All' ? ' for this category' : '') + '.</div>';
+    return;
+  }
+
+  entriesFeed.innerHTML = sorted.map(e => `
+    <div class="entry">
+      <div class="meta">
+        <span>${formatDate(e.date)}</span>
+        <span class="tag">${catEmoji[e.category] || ''} ${escapeHtml(e.category || '')}</span>
+      </div>
+      <div class="body">${escapeHtml(e.text || '')}</div>
+      ${e.location ? `<div class="loc">📍 ${escapeHtml(e.location)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// Submit new entry
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const date = document.getElementById('entryDate').value;
+  const location = document.getElementById('entryLocation').value.trim();
+  const text = document.getElementById('entryText').value.trim();
+
+  if (!selectedCat) {
+    setStatus('Please pick a category.', 'err');
+    return;
+  }
+  if (!text) {
+    setStatus('Please write a note.', 'err');
+    return;
+  }
+  if (!getToken()) {
+    setStatus('No GitHub token saved — open Settings below.', 'err');
+    settingsDetails.open = true;
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  setStatus('Saving…', '');
+
+  try {
+    const { entries, sha } = await ghGetFile();
+    const newEntry = {
+      date,
+      category: selectedCat,
+      location,
+      text,
+      createdAt: new Date().toISOString()
+    };
+    entries.push(newEntry);
+    await ghSaveFile(entries, sha);
+
+    allEntries = entries;
+    renderEntries();
+
+    // Reset form
+    document.getElementById('entryText').value = '';
+    document.getElementById('entryLocation').value = '';
+    document.querySelectorAll('#catRow .cat-chip').forEach(c => c.classList.remove('selected'));
+    selectedCat = null;
+
+    setStatus('Saved! ✅', 'ok');
+  } catch (e) {
+    setStatus('Error: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+function setStatus(msg, cls) {
+  statusMsg.textContent = msg;
+  statusMsg.className = 'status' + (cls ? ' ' + cls : '');
+}
+
+loadEntries();
+</script>
+
+</body>
+</html>
