@@ -34,7 +34,6 @@
     font-style: italic;
   }
 
-  .section-header {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
     color: #2d5a3d;
@@ -54,7 +53,6 @@
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
 
-  .card-header {
     padding: 14px 18px 10px;
     display: flex;
     align-items: center;
@@ -263,11 +261,9 @@
 <p class="subtitle">Complete care reference — flowers, tomato, oregano</p>
 
 <!-- ===================== SECTION 1: FLOWER TRIMMING ===================== -->
-<div class="section-header">✂️ Flower Trimming Guide</div>
 
 <!-- COLUMBINE -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🌸</span>
     <div>
       <div class="plant-name">Wild Columbine</div>
@@ -310,7 +306,6 @@
 
 <!-- ROZANNE -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">💜</span>
     <div>
       <div class="plant-name">Rozanne Cranesbill Geranium</div>
@@ -355,7 +350,6 @@
 
 <!-- WHITE PHLOX -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🤍</span>
     <div>
       <div class="plant-name">White Phlox</div>
@@ -397,7 +391,6 @@
 
 <!-- CATNIP -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🐱</span>
     <div>
       <div class="plant-name">Catnip</div>
@@ -440,11 +433,9 @@
 </div>
 
 <!-- ===================== SECTION 2: TOMATO ===================== -->
-<div class="section-header">🍅 Beefsteak Tomato Care</div>
 
 <!-- Storm Recovery -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">⛈️</span>
     <div>
       <div class="plant-name">Storm Damage Recovery</div>
@@ -467,7 +458,6 @@
 
 <!-- Sucker Removal -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🌱</span>
     <div>
       <div class="plant-name">Sucker Removal</div>
@@ -515,7 +505,6 @@
 
 <!-- Watering -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">💧</span>
     <div>
       <div class="plant-name">Tomato Watering</div>
@@ -539,7 +528,6 @@
 
 <!-- Fertilizing -->
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🌾</span>
     <div>
       <div class="plant-name">Tomato Fertilizing Schedule</div>
@@ -571,10 +559,8 @@
 </div>
 
 <!-- ===================== SECTION 3: OREGANO ===================== -->
-<div class="section-header">🌿 Italian Oregano Care</div>
 
 <div class="plant-card">
-  <div class="card-header">
     <span class="plant-emoji">🍃</span>
     <div>
       <div class="plant-name">Harvesting Oregano</div>
@@ -592,28 +578,78 @@
   </div>
 </div>
 
-<div class="plant-card">
-  <div class="card-header">
-    <span class="plant-emoji">✂️</span>
-    <div>
-      <div class="plant-name">Oregano Trimming & Bolting</div>
-      <div class="plant-timing">Watch for flower buds — trim before they open</div>
+<!-- REPLACE your existing ✂️ Oregano Trimming & Bolting card with this -->
+
+<div class="care-card">
+  <div class="card-icon">✂️</div>
+  <div class="card-content">
+    <h3>Oregano Trimming, Height & Bolting</h3>
+    <div class="timing-badge">Keep under 4" · Trim every 3–4 weeks</div>
+
+    <p><strong>Target height: 4 inches.</strong> Italian oregano in a container is healthiest and most productive kept at or under 4 inches tall. Once it creeps past that, stems get woody, airflow drops, and it's more likely to bolt.</p>
+
+    <div class="diagram">
+      <div class="diagram-title">📏 Height Guide — Where to Cut</div>
+      <div style="font-family:monospace; font-size:0.82em; line-height:1.7; background:#f4f9f5; padding:12px; border-radius:8px; margin-top:8px;">
+<pre style="margin:0; white-space:pre;">
+  ↑  6–8"  ← TOO TALL — cut now, before bolting
+  |   🌸   ← flower buds forming at tips (pinch these!)
+  |   🌿
+  ↓  4"    ← IDEAL HEIGHT — cut back to here
+  ✂ ─────────────────────  ← cut line
+  |   🌿   ← leave these lower leaves alone
+  |   🌿
+  ●         ← soil line
+</pre>
+      </div>
+      <p style="font-size:0.82em; color:#7a756b; margin-top:6px;">Cut just above a leaf node (where two leaves branch off). Never cut into bare woody stem with no leaves below.</p>
     </div>
-    <span class="badge badge-warning">Prevent bolting</span>
-  </div>
-  <div class="instructions">
-    <strong>What is bolting?</strong> When oregano gets hot and decides to flower, the leaves turn bitter and the plant stops being useful for cooking.
-    <br><br>
-    <strong>How to prevent it:</strong> When you see small flower buds forming at the tips of stems, pinch them off immediately before they open.
-    <br><br>
-    <strong>If it starts spreading too wide:</strong> Trim the edges back hard — right down to a few inches from the edge of the pot. Oregano in a shared container with tomato needs to stay in its lane.
-    <div class="warning">⚠️ If oregano gets very large it will compete with your tomato for root space. Keep it trimmed to the front half of the box.</div>
+
+    <div class="diagram" style="margin-top:14px;">
+      <div class="diagram-title">🌸 Spotting a Bolt — Pinch These Immediately</div>
+      <div style="font-family:monospace; font-size:0.82em; line-height:1.7; background:#fff8f0; padding:12px; border-radius:8px; margin-top:8px; border-left:3px solid #e07b39;">
+<pre style="margin:0; white-space:pre;">
+  NORMAL STEM         BOLTING STEM
+      🌿                  🌸 ← pinch here before this opens!
+      |                   |
+      🌿                  🌿
+      |                   |
+      🌿                  🌿
+</pre>
+      </div>
+      <p style="font-size:0.82em; color:#7a756b; margin-top:6px;">Bolting tip looks elongated and pointy with tiny buds. Normal leaf tips are flat and rounded. Catch it early — once flowers fully open, nearby leaves turn bitter.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <strong>How often to trim:</strong>
+      <ul style="margin:6px 0 0; padding-left:18px; font-size:0.9em; line-height:1.8;">
+        <li>Every <strong>3–4 weeks</strong> through the growing season (June–Sept)</li>
+        <li>Any time it hits 6"+ — don't wait for the schedule</li>
+        <li>Any time you see flower buds — pinch immediately regardless of height</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:12px;">
+      <strong>How much to cut:</strong>
+      <ul style="margin:6px 0 0; padding-left:18px; font-size:0.9em; line-height:1.8;">
+        <li>Cut back to <strong>4 inches</strong> from soil — all stems, not just the tall ones</li>
+        <li>Never remove more than <strong>⅓ of the plant at once</strong></li>
+        <li>Always cut just above a leaf node — never into bare woody stem</li>
+      </ul>
+    </div>
+
+    <div class="tip-box" style="margin-top:12px;">
+      💡 The trimmings you cut are ready to use fresh or dry. Tie a small bundle and hang upside down for 1–2 weeks for dried oregano.
+    </div>
+
+    <div class="warning-box" style="margin-top:10px;">
+      ⚠️ If oregano bolts and you didn't catch it in time — cut the whole plant back hard to 2–3 inches, water well, and it will regrow fresh non-bitter leaves within 2 weeks.
+    </div>
   </div>
 </div>
 
 <!-- ===================== SECTION 4: SEASONAL TIMELINE ===================== -->
-<div class="section-header">📅 Full Season Timeline</div>
-
+ 
 <div class="plant-card">
   <div class="instructions" style="border-top: none;">
     <div class="timeline">
