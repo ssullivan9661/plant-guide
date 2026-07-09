@@ -1,5 +1,5 @@
 [
-    {
+  {
     "date": "2026-06-01",
     "category": "Storm Damage",
     "location": "Tomato bed",
@@ -19,5 +19,12 @@
     "location": "Herb container",
     "text": "Oregano is confirmed ready to harvest. Smells strong and leaves are full-sized.",
     "createdAt": "2026-06-10T12:00:00.000Z"
+  },
+  {
+    "date": "2026-07-08",
+    "category": "Pests/Treatment",
+    "location": "Tomato bed",
+    "text": "Cut lower leaf stems still yellowing post water-soluble and regular fertilizer. Help to prevent disease and reduce likelihood of soil fungus, common on seacoast and with mix of old/new soil.",
+    "createdAt": "2026-07-09T09:31:47.928Z"
   }
 ]
